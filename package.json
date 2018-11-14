@@ -1,0 +1,29 @@
+{
+  "name": "dev-circle",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "scripts": {
+    "database": "./node_modules/.bin/babel-node src/database.js",
+    "start": "./node_modules/.bin/nodemon --exec babel-node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "apollo-boost": "^0.1.20",
+    "apollo-cache-inmemory": "^1.3.9",
+    "apollo-client": "^2.4.5",
+    "apollo-link-http": "^1.5.5",
+    "apollo-server": "^2.2.2",
+    "dotenv": "^6.1.0",
+    "graphql-tag": "^2.10.0",
+    "neo4j-driver": "^1.7.1",
+    "neo4j-graphql-js": "^1.0.5",
+    "node-fetch": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.6"
+  }
+}

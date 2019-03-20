@@ -1,3 +1,13 @@
-# dev-circle
+# (GraphQL)-[:LIKES]-(GraphDB)
 
-A presentation of graph database concepts using the GRANDstack software stack for FB Developer Circles '18
+## Docker
+
+```
+$ docker build -t dev-circle .
+$ docker-compose up
+```
+
+## Acessos
+
+* GraphQL: `http://localhost:4000`
+* Neo4j: `http://localhost:7474`

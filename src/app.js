@@ -1,6 +1,6 @@
 import { resolver, schema } from './database/schema'
 
-import { ApolloServer, makeExecutableSchema } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
 import dotenv from 'dotenv'
 import mergeSchemas from 'graphql-tools'
 import { v1 as neo4j } from 'neo4j-driver'

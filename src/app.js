@@ -1,19 +1,25 @@
-import { ApolloServer, makeExecutableSchema } from "apollo-server"
-import { v1 as neo4j } from "neo4j-driver"
+import { resolver, schema } from './database/schema'
 
-import { resolvers, typeDefs } from "./schema"
-
-import augmentSchema from "neo4j-graphql-js"
-import dotenv from "dotenv"
+import { ApolloServer, makeExecutableSchema } from 'apollo-server'
+import dotenv from 'dotenv'
+import mergeSchemas from 'graphql-tools'
+import { v1 as neo4j } from 'neo4j-driver'
+import augmentSchema from 'neo4j-graphql-js'
 
 dotenv.config()
 
-const schema = makeExecutableSchema({
-    resolvers,
-    typeDefs
-})
+const augmentedSchema = augmentSchema(
+    schema,
+    {
+        mutation: false,
+        query: true
+    }
+)
 
-const augmentedSchema = augmentSchema(schema)
+const finalSchema = mergeSchemas({
+    resolvers: [resolver],
+    schemas: [augmentedSchema]
+})
 
 const driver = neo4j.driver(
     process.env.NEO4J_URI,
@@ -25,9 +31,11 @@ const driver = neo4j.driver(
 
 const server = ApolloServer({
     context: { driver },
-    schema: augmentedSchema
+    introspection: true,
+    playground: true,
+    schema: finalSchema
 })
 
-server.listen(process.env.GRAPHQL_PORT, "0.0.0.0").then(({ url }) => 
-    console.log("")
+server.listen(process.env.GRAPHQL_PORT, '0.0.0.0').then(({ url }) => 
+    console.log(`GraphQL API ready at ${url}`)
 )

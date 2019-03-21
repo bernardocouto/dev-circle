@@ -1,37 +1,53 @@
-import { makeExecutableSchema } from 'apollo-server'
+import { makeAugmentedSchema } from 'neo4j-graphql-js'
 
-const mutation = `
+import category from './category'
+import product from './product'
+
+const mutations = `
     type Mutation {
-
+        ${category.mutation}
+        ${product.mutation}
     }
 `
 
-const query = `
+const queries = `
     type Query {
-
+        ${category.query}
+        ${product.query}
     }
 `
 
-const subscription = `
+const subscriptions = `
     type Subscription {
-
+        ${product.subscription}
     }
 `
 
 const resolver = {
-    Mutation: Object.assign(),
-    Query: Object.assign(
-
+    Mutation: Object.assign(
+        product.resolver.Mutation
     ),
-    Subscription: Object.assign()
+    Query: Object.assign(
+        category.resolver.Query
+    ),
+    Subscription: Object.assign(
+        product.resolver.Subscription
+    )
 }
 
-const schema = makeExecutableSchema({
+const schema = makeAugmentedSchema({
+    config: {
+        mutation: false,
+        query: true
+    },
+    resolvers: resolver,
     typeDefs: [
-        mutation,
-        query,
-        subscription
-    ]
+        category.schema,
+        product.schema,
+        mutations,
+        queries,
+        subscriptions
+    ].join('')
 })
 
 export { resolver, schema }

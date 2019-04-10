@@ -31,7 +31,7 @@ export default {
     },
     Subscription: {
         createProduct: {
-            subscription: () => pubSub.asyncIterator([CREATE_PRODUCT])
+            subscribe: () => pubSub.asyncIterator([CREATE_PRODUCT])
         }
     }
 

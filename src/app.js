@@ -10,7 +10,7 @@ const driver = neo4j.driver(
     `bolt://${process.env.NEO4J_URI}:7687`,
     neo4j.auth.basic(
         'neo4j',
-        null
+        process.env.NEO4J_PASSWORD
     )
 )
 
@@ -30,6 +30,6 @@ const server = new ApolloServer({
     schema: schema
 })
 
-server.listen(4000, '0.0.0.0').then(({ url }) => 
+server.listen(4004, '0.0.0.0').then(({ url }) => 
     console.log(`GraphQL API ready at ${url}`)
 )

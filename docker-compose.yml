@@ -5,7 +5,7 @@ services:
   app:
     image: dev-circle
     ports:
-      - 4000:4000
+      - 4004:4004
     depends_on:
       - neo4j
       - redis
@@ -22,7 +22,13 @@ services:
       - 7474:7474
       - 7687:7687
     environment:
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
       - NEO4J_AUTH=none
+    volumes:
+      - $PWD/neo4j/data:/data
+      - $PWD/neo4j/plugins:/plugins
 
   redis:
     image: redis:latest

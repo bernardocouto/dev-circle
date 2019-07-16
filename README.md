@@ -1,18 +1,18 @@
 # (GraphQL)-[:LIKES]->(GraphDB)
 
-## Dependências
+## Dependencies
 
 * Node.js 10.15
 * Python 3.7
 
-## Dados
+## Data
 
-Realizar o download dos arquivos listados abaixo e copiar para `/dev-circle/import/`
+Download the files listed below and copy to `/dev-circle/import/`
 
 * Categories: `https://s3.amazonaws.com/dev-circle/categories.json`
 * Products: `https://s3.amazonaws.com/dev-circle/products.json`
 
-## Importação inicial
+## Initial import
 
 ```
 $ cd import
@@ -29,7 +29,11 @@ $ docker build -t dev-circle .
 $ docker-compose up -d
 ```
 
-## Acessos
+## Access
 
 * GraphQL: `http://localhost:4004`
 * Neo4j: `http://localhost:7474`
+
+## References
+
+* GRANDStack
